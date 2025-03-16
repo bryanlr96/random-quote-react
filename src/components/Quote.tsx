@@ -13,14 +13,26 @@ export default function Quote({ color, setColorIndex }: QuoteProps) {
   const [author, setAuthor] = useState('')
 
   useEffect(() => {
-    fetch('/api/api/qotd')
-      .then(response => response.json())
+    fetch('/api/api/qotd', {
+      headers: {
+        'Accept': 'application/json' // Indica que esperas una respuesta JSON
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
-        console.log(data)
-        setQuote(data.quote.body)
-        setAuthor(data.quote.author)
+        console.log('Respuesta de la API:', data); // Depuración
+        setQuote(data.quote.body);
+        setAuthor(data.quote.author);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error); // Depuración
       });
-  }, [])
+  }, []);
 
 
   const handleClick = async () => {
