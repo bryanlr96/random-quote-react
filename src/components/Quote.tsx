@@ -13,33 +13,24 @@ export default function Quote({ color, setColorIndex }: QuoteProps) {
   const [author, setAuthor] = useState('')
 
   useEffect(() => {
-    fetch('/.netlify/functions/qotd') // Usa la función de Netlify
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-        return response.json();
-      })
+    fetch('/.netlify/functions/qotd') // requiere configuracion del proxy de netlify, para las redirecciones utilizamos el fichero qotd.js y netlify.toml
+      .then(response => response.json())
       .then(data => {
-        console.log('Respuesta de la API:', data); // Depuración
         setQuote(data.quote.body);
         setAuthor(data.quote.author);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error); // Depuración
-      });
   }, []);
 
 
   const handleClick = async () => {
     setColorIndex(prev => (prev + 1) % colors.length)
 
-    fetch('/api/api/qotd')
+    fetch('/.netlify/functions/qotd') // requiere configuracion del proxy de netlify, para las redirecciones utilizamos el fichero qotd.js y netlify.toml
       .then(response => response.json())
       .then(data => {
-        setQuote(data.quote.body)
-        setAuthor(data.quote.author)
-      });
+        setQuote(data.quote.body);
+        setAuthor(data.quote.author);
+      })
   }
 
 
