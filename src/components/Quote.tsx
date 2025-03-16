@@ -13,7 +13,7 @@ export default function Quote({ color, setColorIndex }: QuoteProps) {
   const [author, setAuthor] = useState('')
 
   useEffect(() => {
-    fetch('https://favqs.com/api/qotd', {
+    fetch('/api/api/qotd', {
       headers: {
         'Accept': 'application/json' // Indica que esperas una respuesta JSON
       }
