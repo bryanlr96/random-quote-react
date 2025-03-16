@@ -1,5 +1,2 @@
-[[redirects]]
-  from = "/api/*"
-  to = "https://favqs.com/api/:splat"
-  status = 200
-  force = true
+[build]
+  functions = "functions"  # Indica que las funciones están en la carpeta "functions"
