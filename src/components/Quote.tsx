@@ -16,6 +16,7 @@ export default function Quote({ color, setColorIndex }: QuoteProps) {
     fetch('/api/api/qotd')
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         setQuote(data.quote.body)
         setAuthor(data.quote.author)
       });
