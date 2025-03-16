@@ -13,14 +13,10 @@ export default function Quote({ color, setColorIndex }: QuoteProps) {
   const [author, setAuthor] = useState('')
 
   useEffect(() => {
-    fetch('/api/api/qotd', {
-      headers: {
-        'Accept': 'application/json' // Indica que esperas una respuesta JSON
-      }
-    })
+    fetch('/.netlify/functions/qotd') // Usa la función de Netlify
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         return response.json();
       })
